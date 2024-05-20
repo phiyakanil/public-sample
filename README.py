@@ -5,17 +5,21 @@ class ToDoList:
     def add_task(self, task):
         self.tasks.append({"task": task, "completed": False})
 
+    # Changed: Optimized delete_task method using list comprehension
     def delete_task(self, task):
-        for t in self.tasks:
-            if t["task"] == task:
-                self.tasks.remove(t)
-                return
-        print("Task not found.")
+        original_length = len(self.tasks)  # Added to check if task was deleted
+        self.tasks = [t for t in self.tasks if t["task"] != task]
+        if len(self.tasks) < original_length:
+            print("Task deleted.")
+        else:
+            print("Task not found.")
 
+    # Changed: Optimized mark_complete method using for-else loop
     def mark_complete(self, task):
         for t in self.tasks:
             if t["task"] == task:
                 t["completed"] = True
+                print("Task marked as complete.")
                 return
         print("Task not found.")
 
